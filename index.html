@@ -1,309 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elegant Payment Options</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        
-        .payment-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .payment-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 0, 255, 0.1) 0%,
-                rgba(0, 255, 255, 0.1) 50%,
-                rgba(255, 255, 0, 0.1) 100%
-            );
-            transform: rotate(30deg);
-            animation: shine 8s infinite linear;
-            z-index: -1;
-        }
-        
-        @keyframes shine {
-            0% { transform: rotate(30deg) translate(-10%, -10%); }
-            25% { transform: rotate(30deg) translate(10%, 10%); }
-            50% { transform: rotate(30deg) translate(-10%, 10%); }
-            75% { transform: rotate(30deg) translate(10%, -10%); }
-            100% { transform: rotate(30deg) translate(-10%, -10%); }
-        }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 600;
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-        
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, #ff00ff, #00ffff, #ffff00);
-            border-radius: 3px;
-            animation: rainbow 3s linear infinite;
-            background-size: 200% 100%;
-        }
-        
-        @keyframes rainbow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .payment-method {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .payment-method:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .payment-method::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
-            transition: all 0.5s ease;
-        }
-        
-        .payment-method:hover::before {
-            left: 100%;
-        }
-        
-        .method-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
-        
-        .method-title i {
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-        
-        .method-detail {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            font-family: 'Courier New', monospace;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .method-detail::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, #ff00ff, #00ffff);
-            animation: lightBar 2s infinite alternate;
-        }
-        
-        @keyframes lightBar {
-            0% { background: #ff00ff; }
-            50% { background: #00ffff; }
-            100% { background: #ffff00; }
-        }
-        
-        .copy-btn {
-            background: linear-gradient(45deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.8em;
-            margin-top: 5px;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        
-        .copy-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(37, 117, 252, 0.5);
-        }
-        
-        .qris-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-        .qris-image {
-            max-width: 200px;
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .qris-image:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-        }
-        
-        .neon-text {
-            animation: neonGlow 2s infinite alternate;
-        }
-        
-        @keyframes neonGlow {
-            from {
-                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff00ff, 0 0 20px #ff00ff;
-            }
-            to {
-                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00ffff, 0 0 40px #00ffff;
-            }
-        }
-        
-        .floating-lights {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .light {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            animation: float 15s infinite linear;
-            opacity: 0.6;
-        }
-        
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            25% { transform: translate(100px, 50px); }
-            50% { transform: translate(50px, 100px); }
-            75% { transform: translate(-50px, 50px); }
-            100% { transform: translate(0, 0); }
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PAYMENT REV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #0f0f0f;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    #nameForm, #mainContent {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00ffe1;
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+      animation: glow-border 2s infinite alternate;
+    }
+
+    @keyframes glow-border {
+      from { border: 2px solid #00ffe1; }
+      to { border: 2px solid #ff00cc; }
+    }
+
+    h1.glow {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      animation: glow-text 2s infinite alternate;
+    }
+
+    @keyframes glow-text {
+      from { text-shadow: 0 0 10px #00ffe1; }
+      to { text-shadow: 0 0 20px #ff00cc; }
+    }
+
+    .btn, .copy-btn {
+      background: #00ffe1;
+      border: none;
+      color: #000;
+      padding: 10px 20px;
+      margin-top: 15px;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover, .copy-btn:hover {
+      background: #ff00cc;
+      color: white;
+    }
+
+    .payment-box {
+      margin: 15px 0;
+      background: #222;
+      padding: 15px;
+      border-radius: 15px;
+      border: 1px solid #444;
+      box-shadow: 0 0 10px #00ffe1;
+    }
+
+    #loader {
+      display: none;
+      font-size: 1.2em;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1 }
+      50% { opacity: 0.2 }
+    }
+
+    img.qris {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 15px;
+      border: 2px solid #00ffe1;
+      box-shadow: 0 0 15px #00ffe1;
+      margin-top: 20px;
+    }
+
+    input, select {
+      margin-top: 10px;
+      padding: 10px;
+      width: 100%;
+      border-radius: 10px;
+      border: none;
+      background: #333;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-    <div class="payment-container">
-        <div class="floating-lights" id="lights-container"></div>
-        <h1 class="neon-text">PAYMENT METHODS</h1>
-        
-        <div class="payment-method">
-            <div class="method-title">
-                <i class="fas fa-mobile-alt"></i> DANA
-            </div>
-            <div class="method-detail">085828481568</div>
-            <div class="method-detail">A/N: revv</div>
-            <button class="copy-btn" onclick="copyToClipboard('085828481568')">Copy Number</button>
-        </div>
-        
-        <div class="payment-method">
-            <div class="method-title">
-                <i class="fab fa-google"></i> GOPAY
-            </div>
-            <div class="method-detail">081324982853</div>
-            <div class="method-detail">A/N: REV STORE</div>
-            <button class="copy-btn" onclick="copyToClipboard('081324982853')">Copy Number</button>
-        </div>
-        
-        <div class="payment-method">
-            <div class="method-title">
-                <i class="fas fa-qrcode"></i> QRIS
-            </div>
-            <div class="qris-container">
-                <img src="https://img1.pixhost.to/images/6853/616721025_danz.jpg" alt="QRIS Code" class="qris-image">
-                <p>Scan QR Code above</p>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        // Create floating lights
-        const colors = ['#ff00ff', '#00ffff', '#ffff00', '#ff9900', '#00ff99'];
-        const lightsContainer = document.getElementById('lights-container');
-        
-        for (let i = 0; i < 20; i++) {
-            const light = document.createElement('div');
-            light.className = 'light';
-            light.style.background = colors[Math.floor(Math.random() * colors.length)];
-            light.style.left = Math.random() * 100 + '%';
-            light.style.top = Math.random() * 100 + '%';
-            light.style.width = Math.random() * 10 + 5 + 'px';
-            light.style.height = light.style.width;
-            light.style.animationDuration = Math.random() * 10 + 10 + 's';
-            light.style.animationDelay = Math.random() * 5 + 's';
-            lightsContainer.appendChild(light);
-        }
-        
-        // Copy to clipboard function
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Copied to clipboard: ' + text);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-            });
-        }
-    </script>
+<div id="nameForm">
+  <h1 class="glow">Masukkan Nama Anda</h1>
+  <input type="text" id="userName" placeholder="Nama Kamu..." />
+  <button class="btn" onclick="submitName()">Masuk</button>
+  <p id="loader">⏳ Selamat datang di Web Payment REV...</p>
+</div>
+
+<div id="mainContent" style="display: none;">
+  <h1 class="glow">💳 PAYMENT REV 💳</h1>
+
+  <div class="payment-box">
+    <p>DANA: <span id="danaNum">085828481568</span></p>
+    <button class="copy-btn" onclick="copyToClipboard('danaNum')">SALIN DANA</button>
+  </div>
+
+  <div class="payment-box">
+    <p>GOPAY: <span id="gopayNum">081324982853</span></p>
+    <button class="copy-btn" onclick="copyToClipboard('gopayNum')">SALIN GOPAY</button>
+  </div>
+
+  <div class="payment-box">
+    <p>QRIS:</p>
+    <img src="https://files.catbox.moe/0ro09v.jpg" class="qris" alt="QRIS CODE">
+  </div>
+
+  <div class="payment-box">
+    <h3 class="glow">Kirim Bukti Transfer</h3>
+    <select id="metode">
+      <option value="">Pilih Metode Pembayaran</option>
+      <option value="DANA">DANA</option>
+      <option value="GOPAY">GOPAY</option>
+      <option value="QRIS">QRIS</option>
+    </select>
+    <button class="btn" onclick="kirimKeWhatsApp()">Kirim Bukti Transfer</button>
+  </div>
+</div>
+
+<script>
+  function submitName() {
+    const name = document.getElementById('userName').value.trim();
+    if (!name) {
+      alert('Nama wajib diisi!');
+      return;
+    }
+    document.getElementById('loader').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('nameForm').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+    }, 2500);
+  }
+
+  function copyToClipboard(id) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Disalin: ' + text);
+    });
+  }
+
+  function kirimKeWhatsApp() {
+    const nama = document.getElementById('userName').value.trim();
+    const metode = document.getElementById('metode').value;
+    if (!metode) {
+      alert("Pilih metode pembayaran dulu.");
+      return;
+    }
+
+    const pesan = `Halo admin, saya *${nama}* sudah melakukan transfer via *${metode}*.\nMohon dicek ya!\nSaya akan kirim bukti transfer sekarang.`;
+
+    const url = `https://wa.me/6285828481568?text=${encodeURIComponent(pesan)}`;
+    window.open(url, '_blank');
+  }
+</script>
+
 </body>
 </html>
